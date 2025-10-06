@@ -1,5 +1,5 @@
 # Weatherly ⛅
-Telegram: (@iamweatherly_bot)[https://t.me/iamweatherly_bot] </br>
+Telegram: [@iamweatherly_bot](https://t.me/iamweatherly_bot) </br>
 Never get caught off guard by the weather again! Weatherly is an intelligent Telegram bot that keeps you informed about weather conditions in your city. 
 
 ## Features ✨
