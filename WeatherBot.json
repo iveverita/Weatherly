@@ -1,0 +1,2774 @@
+{
+  "name": "WeatherBot(EN)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -496,
+        640
+      ],
+      "id": "7b9ca19d-1487-4416-b2d3-cbab2b3ccc8b",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "weatherbot",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -448,
+        -432
+      ],
+      "id": "1e435c09-1359-4555-a805-c2ad256f613a",
+      "name": "Webhook",
+      "webhookId": "9066593e-93d6-4e76-b937-b75b1e877f58"
+    },
+    {
+      "parameters": {
+        "cityName": "={{$json.body.city}}",
+        "language": "ro"
+      },
+      "type": "n8n-nodes-base.openWeatherMap",
+      "typeVersion": 1,
+      "position": [
+        0,
+        -240
+      ],
+      "id": "9a129d5b-e9b8-4073-bde6-0201ae691057",
+      "name": "OpenWeatherMap1",
+      "credentials": {
+        "openWeatherMapApi": {
+          "id": "sgEuMyJV3tXxshHV",
+          "name": "OpenWeatherMap account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "1wZmEVI3OS95HgAFM56D_BuLLlwgzDTib8iedWybapxE",
+          "mode": "list",
+          "cachedResultName": "TelegramBot(EN)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wZmEVI3OS95HgAFM56D_BuLLlwgzDTib8iedWybapxE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Users",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wZmEVI3OS95HgAFM56D_BuLLlwgzDTib8iedWybapxE/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "ChatID",
+              "lookupValue": "={{$json.body.chat_id}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        0,
+        -608
+      ],
+      "id": "19583681-6071-4fef-bef3-9163d84cdffd",
+      "name": "Get ChatID",
+      "credentials": {
+        "googleApi": {
+          "id": "o6R0lee8oe7HWxnv",
+          "name": "Google Service Account account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1wZmEVI3OS95HgAFM56D_BuLLlwgzDTib8iedWybapxE",
+          "mode": "list",
+          "cachedResultName": "TelegramBot(EN)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wZmEVI3OS95HgAFM56D_BuLLlwgzDTib8iedWybapxE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Users",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wZmEVI3OS95HgAFM56D_BuLLlwgzDTib8iedWybapxE/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "City": "={{ $json.body.city }}",
+            "Hour": "={{ $json.body.hour }}",
+            "Username": "={{ $json.body.username }}",
+            "Timestamp": "={{ $now }}",
+            "ChatID": "={{ $json.body.chat_id }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ChatID",
+              "displayName": "ChatID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "City",
+              "displayName": "City",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Hour",
+              "displayName": "Hour",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Username",
+              "displayName": "Username",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        0,
+        -960
+      ],
+      "id": "06b289ed-7c4a-4970-87cf-bda7c0a89938",
+      "name": "Add new subscriber",
+      "credentials": {
+        "googleApi": {
+          "id": "o6R0lee8oe7HWxnv",
+          "name": "Google Service Account account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "batchSize": "={{ 1 }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        208,
+        -608
+      ],
+      "id": "6c3a7a00-b9fa-46c8-a639-b37925f11edb",
+      "name": "Loop every city"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "operation": "delete",
+        "documentId": {
+          "__rl": true,
+          "value": "1wZmEVI3OS95HgAFM56D_BuLLlwgzDTib8iedWybapxE",
+          "mode": "list",
+          "cachedResultName": "TelegramBot(EN)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wZmEVI3OS95HgAFM56D_BuLLlwgzDTib8iedWybapxE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Users",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wZmEVI3OS95HgAFM56D_BuLLlwgzDTib8iedWybapxE/edit#gid=0"
+        },
+        "startIndex": "={{ $json.row_number }}",
+        "numberToDelete": "=1"
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        384,
+        -592
+      ],
+      "id": "5372ce3b-33e1-4196-8809-02101ad27490",
+      "name": "Delete subscribed city",
+      "credentials": {
+        "googleApi": {
+          "id": "o6R0lee8oe7HWxnv",
+          "name": "Google Service Account account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{$json.body.action}}",
+                    "rightValue": "subscribe",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "5df765ec-8882-4e01-a260-7f0668f53c4b"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": "={{ false }}"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "ae9075df-ca1a-4443-aacc-ec0e375b3019",
+                    "leftValue": "={{$json.body.action}}",
+                    "rightValue": "unsubscribe",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "bbbb8cc4-2fed-4782-8171-d3c626a20a83",
+                    "leftValue": "={{$json.body.action}}",
+                    "rightValue": "getnow",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "a517b50c-ed0a-4537-813b-a477cfa90fa4",
+                    "leftValue": "={{$json.body.action}}",
+                    "rightValue": "status",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -224,
+        -464
+      ],
+      "id": "671caff7-fba2-4430-bd55-a1e10a3a4fdf",
+      "name": "Switch action"
+    },
+    {
+      "parameters": {
+        "operation": "formatDate",
+        "date": "={{$now}}",
+        "format": "custom",
+        "customFormat": "={{$now.format('HH')}}",
+        "outputFieldName": "=time",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        -320,
+        640
+      ],
+      "id": "7f279dc2-aa75-4a14-abfe-20339fc6384d",
+      "name": "Get Hour"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "1wZmEVI3OS95HgAFM56D_BuLLlwgzDTib8iedWybapxE",
+          "mode": "list",
+          "cachedResultName": "TelegramBot(EN)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wZmEVI3OS95HgAFM56D_BuLLlwgzDTib8iedWybapxE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Users",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wZmEVI3OS95HgAFM56D_BuLLlwgzDTib8iedWybapxE/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Hour",
+              "lookupValue": "={{ $json.time }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -160,
+        640
+      ],
+      "id": "1090c6f7-6b79-462d-8637-aca09388571e",
+      "name": "Get ChatID for Hour",
+      "credentials": {
+        "googleApi": {
+          "id": "o6R0lee8oe7HWxnv",
+          "name": "Google Service Account account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "5DayForecast",
+        "cityName": "={{$json.City}}",
+        "language": "ro"
+      },
+      "type": "n8n-nodes-base.openWeatherMap",
+      "typeVersion": 1,
+      "position": [
+        32,
+        512
+      ],
+      "id": "3119af8f-9b70-4585-86c8-61e2fc4774a4",
+      "name": "Weather",
+      "credentials": {
+        "openWeatherMapApi": {
+          "id": "sgEuMyJV3tXxshHV",
+          "name": "OpenWeatherMap account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combineBySql",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        688,
+        624
+      ],
+      "id": "380fc36a-be32-4873-99f0-5b068639df78",
+      "name": "Merge with ChatID"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.ChatID}}",
+        "text": "={{ $json.message }}",
+        "additionalFields": {
+          "disable_notification": true
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1152,
+        448
+      ],
+      "id": "2b343074-abc6-4426-b1b6-49f9785e837c",
+      "name": "Send tomorrow's forecast",
+      "webhookId": "bf0a1ce5-002d-4f55-b491-492949a160ff",
+      "credentials": {
+        "telegramApi": {
+          "id": "gqbqHdceXSFm1hZu",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get today's date at midnight\nconst today = new Date();\ntoday.setHours(0, 0, 0, 0);\n\n// Get tomorrow's date range\nconst tomorrow = new Date(today);\ntomorrow.setDate(tomorrow.getDate() + 1);\n\nconst dayAfterTomorrow = new Date(tomorrow);\ndayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 1);\n\n// Filter for tomorrow's forecasts only\nconst tomorrowForecasts = $input.first().json.list.filter(item => {\n  const forecastDate = new Date(item.dt * 1000);\n  return forecastDate >= tomorrow && forecastDate < dayAfterTomorrow;\n});\n\nreturn tomorrowForecasts.map(item => ({ json: item }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        512
+      ],
+      "id": "43b63a38-b4a5-4ecc-b8a8-b1f6e15a40ae",
+      "name": "Filter Input"
+    },
+    {
+      "parameters": {
+        "mode": "combineBySql",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        384,
+        -400
+      ],
+      "id": "b98b8cd3-1512-4de6-a082-1bc51b20212b",
+      "name": "Merge with ChatID1"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chat_id}}",
+        "text": "={{ $json.message }}",
+        "additionalFields": {
+          "disable_notification": true
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        576,
+        -400
+      ],
+      "id": "bfff2123-9523-49b8-99da-62ce9d1b7efc",
+      "name": "Send current forecast",
+      "webhookId": "124cb381-f1e2-4986-bf50-08b043b90de6",
+      "credentials": {
+        "telegramApi": {
+          "id": "gqbqHdceXSFm1hZu",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        272,
+        144
+      ],
+      "id": "b4c736e8-1e0c-4cd7-9980-f289018bd22e",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "1wZmEVI3OS95HgAFM56D_BuLLlwgzDTib8iedWybapxE",
+          "mode": "list",
+          "cachedResultName": "TelegramBot(EN)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wZmEVI3OS95HgAFM56D_BuLLlwgzDTib8iedWybapxE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Users",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wZmEVI3OS95HgAFM56D_BuLLlwgzDTib8iedWybapxE/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "ChatID",
+              "lookupValue": "={{$json.body.chat_id}}"
+            }
+          ]
+        },
+        "options": {
+          "outputFormatting": {
+            "values": {
+              "general": "UNFORMATTED_VALUE",
+              "date": "FORMATTED_STRING"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        0,
+        144
+      ],
+      "id": "999cc43f-2f43-46cd-912f-46880cc8d088",
+      "name": "Filter by ChatID",
+      "credentials": {
+        "googleApi": {
+          "id": "o6R0lee8oe7HWxnv",
+          "name": "Google Service Account account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the chat_id from the webhook body\nconst chatId = $input.first().json.body.chat_id;\n\n// Return only the chat_id\nreturn {\n  json: {\n    chat_id: chatId\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        0,
+        -416
+      ],
+      "id": "506b2f7f-e1f5-4b18-97fd-7da538b04c52",
+      "name": "Get ChatID1"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "concatenated_City"
+            },
+            {
+              "fieldToAggregate": "concatenated_Hour"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        672,
+        32
+      ],
+      "id": "ef271307-6b2f-4c29-a2da-f00c0e936946",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the chat_id from the webhook body\nconst chatId = $input.first().json.body.chat_id;\n\n// Return only the chat_id\nreturn {\n  json: {\n    chat_id: chatId\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        0,
+        -48
+      ],
+      "id": "767d1107-a906-4837-a9d7-f6dd046b8525",
+      "name": "Get ChatID2"
+    },
+    {
+      "parameters": {
+        "mode": "combineBySql",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1056,
+        -32
+      ],
+      "id": "dcdd458e-f496-4181-b9ab-f83dd5c05203",
+      "name": "Merge with ChatID2"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chat_id}}",
+        "text": "={{ $json.message || \"❌ You don't have any active subscriptions.\\n\\nUse /subscribe to subscribe!\"}}",
+        "additionalFields": {
+          "disable_notification": true
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1232,
+        -32
+      ],
+      "id": "1400d10c-de71-47d9-8758-ca95c033fbc5",
+      "name": "Send status",
+      "webhookId": "8303aefb-d8a9-499d-95cf-139971fea5fd",
+      "credentials": {
+        "telegramApi": {
+          "id": "gqbqHdceXSFm1hZu",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the chat_id from the webhook body\nconst chatId = $input.first().json.body.chat_id;\n\n// Return only the chat_id\nreturn {\n  json: {\n    chat_id: chatId\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        0,
+        -784
+      ],
+      "id": "cf6420eb-b636-4eca-bfb0-051754018b98",
+      "name": "Get ChatID3"
+    },
+    {
+      "parameters": {
+        "mode": "combineBySql",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        800,
+        -768
+      ],
+      "id": "b1cbef09-2ed5-4c4a-b3b5-7666ae5615d0",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "message"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        384,
+        -704
+      ],
+      "id": "cc5a143f-1244-4022-ae43-f413c6217fd9",
+      "name": "Aggregate1"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chat_id}}",
+        "text": "={{ $json.message || \"No subscriptions\" }}",
+        "additionalFields": {
+          "disable_notification": true
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        976,
+        -768
+      ],
+      "id": "43cf9997-c4e8-43de-9fa8-f8a48244aeef",
+      "name": "Deleted succesful",
+      "webhookId": "14aee2d8-6ba8-4f61-8902-27dcaeb3e6e1",
+      "credentials": {
+        "telegramApi": {
+          "id": "gqbqHdceXSFm1hZu",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.ChatID}}",
+        "text": "=Subscription successfully added for {{ $json.City}} at {{ $json.Hour }} ✅",
+        "additionalFields": {
+          "disable_notification": true
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        208,
+        -960
+      ],
+      "id": "18c1e01f-870e-400d-8b86-dbce46ef7aa6",
+      "name": "New user",
+      "webhookId": "3e6b9b87-e40e-4554-8cf7-ac9c0d8ac9b7",
+      "credentials": {
+        "telegramApi": {
+          "id": "gqbqHdceXSFm1hZu",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const forecasts = $input.all();\n\nconst desiredHours = ['06:00', '09:00', '12:00', '15:00'];\nconst filteredForecasts = forecasts.filter(item => {\n  const time = item.json.dt_txt.split(' ')[1].substring(0, 5);\n  return desiredHours.includes(time);\n});\n\nfunction describeWind(speed) {\n  if (speed <= 1.5) return \"calm, light breeze\";\n  if (speed <= 3.3) return \"gentle wind\";\n  if (speed <= 5.4) return \"moderate wind\";\n  if (speed <= 7.9) return \"fairly strong wind\";\n  if (speed <= 10.7) return \"strong wind\";\n  return \"above limit (10.7 m/s)\";\n}\n\nconst tomorrow = new Date();\ntomorrow.setDate(tomorrow.getDate() + 1);\nlet message = `🌤️ Weather forecast \\n`;\nmessage += `📅 Tomorrow, ${tomorrow.toLocaleDateString('en-GB', { day: '2-digit', month: 'long' })}\\n\\n`;\n\nfilteredForecasts.forEach(item => {\n  const data = item.json;\n  const time = data.dt_txt.split(' ')[1].substring(0, 5); \n  const temp = Math.round(data.main.temp);\n  const condition = data.weather[0].description;\n  const humidity = data.main.humidity;\n  const wind = data.wind.speed;\n  const windDescription = describeWind(wind);\n  const rainProb = Math.round(data.pop * 100);\n  \n  let emoji = '☁️';\n  if (condition.includes('clear')) emoji = '☀️';\n  else if (condition.includes('rain')) emoji = '🌧️';\n  else if (condition.includes('cloud')) emoji = '☁️';\n  else if (condition.includes('snow')) emoji = '❄️';\n  \n  message += `${emoji} *${time}*\\n`;\n  message += `🌡️ ${temp}°C ${condition}\\n`;\n  message += `💧 Humidity: ${humidity}% | 💨 ${windDescription}\\n`;\n  if (rainProb > 0) {\n    message += `🌧️ Chance of rain: ${rainProb}%\\n`;\n  }\n  message += `\\n`;\n});\n\nreturn [{ json: { message } }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        512
+      ],
+      "id": "be716b16-c9dc-42b3-9bf2-40ec4b350210",
+      "name": "Create forecast message"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = items[0].json;\n\n// Replace only the first occurrence of \"Weather forecast\"\ninput.message = input.message.replace(\"Weather forecast\", `Weather forecast ${input.City}`);\n\nreturn [\n  {\n    json: input\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1152,
+        640
+      ],
+      "id": "2bc71530-13b7-4c6d-8604-696d14cbff92",
+      "name": "Add City"
+    },
+    {
+      "parameters": {
+        "batchSize": "={{ 1 }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        896,
+        624
+      ],
+      "id": "f23a450a-e439-4849-bf47-3084fb951e97",
+      "name": "Loop every user"
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "aggregation": "concatenate",
+              "field": "City",
+              "separateBy": ""
+            },
+            {
+              "aggregation": "concatenate",
+              "field": "Hour"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1.1,
+      "position": [
+        512,
+        160
+      ],
+      "id": "6500cdb5-20e7-4921-a3b1-ff95b8269a0b",
+      "name": "Store"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Check if input exists and has data\nif (!$input.all().length || !$input.first()) {\n  return [{\n    json: {\n      message: \"❌ No data found.\\n\\nTry again or use /subscribe to subscribe!\",\n      cities: [],\n      hours: [],\n      subscription_count: 0,\n      isEmpty: true\n    }\n  }];\n}\n\n// Get the input item\nconst item = $input.first().json;\n\n// Check if item exists and has the required properties\nif (!item || typeof item !== 'object') {\n  return [{\n    json: {\n      message: \"❌ Error while processing data.\\n\\nPlease try again later.\",\n      cities: [],\n      hours: [],\n      subscription_count: 0,\n      isEmpty: true\n    }\n  }];\n}\n\n// Get the cities and hours arrays\nconst cities = item.concatenated_City || [];\nconst hours = item.concatenated_Hour || [];\n\n// Build the message\nlet message = '';\n\nif (cities.length === 0) {\n  message = \"❌ You don't have any active subscriptions.\\n\\nUse /subscribe to subscribe!\";\n} else if (cities.length === 1) {\n  const hour = parseInt(hours[0]);\n  const timeDisplay = hour.toString().padStart(2, '0') + ':00';\n  message = \"✅ Active subscription!\\n\\n📍 City: \" + cities[0] + \"\\n⏰ Time: \" + timeDisplay + \"\\n\\nYou will receive daily weather updates at this time.\";\n} else {\n  // Build list with city and hour pairs\n  const subscriptionList = cities.map(function(city, index) {\n    const hour = parseInt(hours[index]);\n    const timeDisplay = hour.toString().padStart(2, '0') + ':00';\n    return \"  • \" + city + \" - \" + timeDisplay;\n  }).join('\\n');\n  \n  message = \"✅ Active subscriptions!\\n\\n📍 Cities and times:\\n\" + subscriptionList + \"\\n\\nYou will receive daily weather updates for these cities.\";\n}\n\n// Return the message\nreturn [{\n  json: {\n    message: message,\n    cities: cities,\n    hours: hours,\n    subscription_count: cities.length,\n    isEmpty: false\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        32
+      ],
+      "id": "3c82dd6c-5fd4-4b14-91f1-e037a66dc8aa",
+      "name": "Create status message"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the weather data from the OpenWeatherMap node\nconst weatherData = $input.first().json;\n\nfunction describeWind(speed) {\n  if (speed <= 1.5) return \"calm, light breeze\";\n  if (speed <= 3.3) return \"light wind\";\n  if (speed <= 5.4) return \"moderate wind\";\n  if (speed <= 7.9) return \"fairly strong wind\";\n  if (speed <= 10.7) return \"strong wind\";\n  return \"over limit (10.7 m/s)\";\n}\n\n// Extract relevant information\nconst cityName = weatherData.name;\nconst country = weatherData.sys.country;\nconst temp = Math.round(weatherData.main.temp);\nconst feelsLike = Math.round(weatherData.main.feels_like);\nconst tempMin = Math.round(weatherData.main.temp_min);\nconst tempMax = Math.round(weatherData.main.temp_max);\nconst humidity = weatherData.main.humidity;\nconst pressure = weatherData.main.pressure;\nconst wind = weatherData.wind.speed;\nconst windSpeed = describeWind(wind);\nconst description = weatherData.weather[0].description;\nconst icon = weatherData.weather[0].icon;\n\n// Map weather icons to emojis\nconst weatherEmojis = {\n  '01d': '☀️', '01n': '🌙',\n  '02d': '⛅', '02n': '☁️',\n  '03d': '☁️', '03n': '☁️',\n  '04d': '☁️', '04n': '☁️',\n  '09d': '🌧️', '09n': '🌧️',\n  '10d': '🌦️', '10n': '🌧️',\n  '11d': '⛈️', '11n': '⛈️',\n  '13d': '❄️', '13n': '❄️',\n  '50d': '🌫️', '50n': '🌫️'\n};\n\nconst emoji = weatherEmojis[icon] || '🌤️';\n\n// Format the message\nconst message = `${emoji} **Weather in ${cityName}, ${country}**\n\n🌡️ **Temperature:** ${temp}°C\n🤚 **Feels like:** ${feelsLike}°C\n📊 **Min/Max:** ${tempMin}°C / ${tempMax}°C\n☁️ **Conditions:** ${description.charAt(0).toUpperCase() + description.slice(1)}\n💧 **Humidity:** ${humidity}%\n🎈 **Pressure:** ${pressure} hPa\n💨 **Wind:** ${windSpeed}`;\n\n// Return the formatted message for the Telegram node\nreturn {\n  json: {\n    message: message\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        208,
+        -240
+      ],
+      "id": "c12dff77-a7f6-4665-ba13-975f5a2776db",
+      "name": "Create current forecast message"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  item.json.message = 'Subscription canceled 🥹\\n';\n  return item;\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        576,
+        -704
+      ],
+      "id": "ac29deac-f22f-4130-b0cd-bfa119c0d15c",
+      "name": "Create cancel message"
+    }
+  ],
+  "pinData": {
+    "Weather": [
+      {
+        "json": {
+          "cod": "200",
+          "message": 0,
+          "cnt": 40,
+          "list": [
+            {
+              "dt": 1759212000,
+              "main": {
+                "temp": 10.67,
+                "feels_like": 10.22,
+                "temp_min": 10.67,
+                "temp_max": 12.05,
+                "pressure": 1022,
+                "sea_level": 1022,
+                "grnd_level": 1006,
+                "humidity": 93,
+                "temp_kf": -1.38
+              },
+              "weather": [
+                {
+                  "id": 500,
+                  "main": "Rain",
+                  "description": "ploaie ușoară",
+                  "icon": "10d"
+                }
+              ],
+              "clouds": {
+                "all": 33
+              },
+              "wind": {
+                "speed": 0.46,
+                "deg": 318,
+                "gust": 0.78
+              },
+              "visibility": 10000,
+              "pop": 0.39,
+              "rain": {
+                "3h": 0.12
+              },
+              "sys": {
+                "pod": "d"
+              },
+              "dt_txt": "2025-09-30 06:00:00"
+            },
+            {
+              "dt": 1759222800,
+              "main": {
+                "temp": 11.41,
+                "feels_like": 10.83,
+                "temp_min": 11.41,
+                "temp_max": 12.12,
+                "pressure": 1023,
+                "sea_level": 1023,
+                "grnd_level": 1006,
+                "humidity": 85,
+                "temp_kf": -0.71
+              },
+              "weather": [
+                {
+                  "id": 803,
+                  "main": "Clouds",
+                  "description": "cer fragmentat",
+                  "icon": "04d"
+                }
+              ],
+              "clouds": {
+                "all": 67
+              },
+              "wind": {
+                "speed": 1.29,
+                "deg": 349,
+                "gust": 1.88
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "d"
+              },
+              "dt_txt": "2025-09-30 09:00:00"
+            },
+            {
+              "dt": 1759233600,
+              "main": {
+                "temp": 14.55,
+                "feels_like": 13.65,
+                "temp_min": 14.55,
+                "temp_max": 14.55,
+                "pressure": 1022,
+                "sea_level": 1022,
+                "grnd_level": 1006,
+                "humidity": 61,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 500,
+                  "main": "Rain",
+                  "description": "ploaie ușoară",
+                  "icon": "10d"
+                }
+              ],
+              "clouds": {
+                "all": 99
+              },
+              "wind": {
+                "speed": 2.5,
+                "deg": 18,
+                "gust": 3.3
+              },
+              "visibility": 10000,
+              "pop": 0.29,
+              "rain": {
+                "3h": 0.46
+              },
+              "sys": {
+                "pod": "d"
+              },
+              "dt_txt": "2025-09-30 12:00:00"
+            },
+            {
+              "dt": 1759244400,
+              "main": {
+                "temp": 16.78,
+                "feels_like": 16.16,
+                "temp_min": 16.78,
+                "temp_max": 16.78,
+                "pressure": 1022,
+                "sea_level": 1022,
+                "grnd_level": 1006,
+                "humidity": 63,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 803,
+                  "main": "Clouds",
+                  "description": "cer fragmentat",
+                  "icon": "04d"
+                }
+              ],
+              "clouds": {
+                "all": 72
+              },
+              "wind": {
+                "speed": 3.46,
+                "deg": 40,
+                "gust": 3.97
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "d"
+              },
+              "dt_txt": "2025-09-30 15:00:00"
+            },
+            {
+              "dt": 1759255200,
+              "main": {
+                "temp": 12.81,
+                "feels_like": 12.37,
+                "temp_min": 12.81,
+                "temp_max": 12.81,
+                "pressure": 1024,
+                "sea_level": 1024,
+                "grnd_level": 1007,
+                "humidity": 85,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 500,
+                  "main": "Rain",
+                  "description": "ploaie ușoară",
+                  "icon": "10n"
+                }
+              ],
+              "clouds": {
+                "all": 83
+              },
+              "wind": {
+                "speed": 2.92,
+                "deg": 24,
+                "gust": 5.42
+              },
+              "visibility": 10000,
+              "pop": 0.94,
+              "rain": {
+                "3h": 0.76
+              },
+              "sys": {
+                "pod": "n"
+              },
+              "dt_txt": "2025-09-30 18:00:00"
+            },
+            {
+              "dt": 1759266000,
+              "main": {
+                "temp": 11.11,
+                "feels_like": 10.63,
+                "temp_min": 11.11,
+                "temp_max": 11.11,
+                "pressure": 1025,
+                "sea_level": 1025,
+                "grnd_level": 1008,
+                "humidity": 90,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 803,
+                  "main": "Clouds",
+                  "description": "cer fragmentat",
+                  "icon": "04n"
+                }
+              ],
+              "clouds": {
+                "all": 67
+              },
+              "wind": {
+                "speed": 2.97,
+                "deg": 357,
+                "gust": 5.65
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "n"
+              },
+              "dt_txt": "2025-09-30 21:00:00"
+            },
+            {
+              "dt": 1759276800,
+              "main": {
+                "temp": 9.63,
+                "feels_like": 8.52,
+                "temp_min": 9.63,
+                "temp_max": 9.63,
+                "pressure": 1025,
+                "sea_level": 1025,
+                "grnd_level": 1008,
+                "humidity": 93,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 803,
+                  "main": "Clouds",
+                  "description": "cer fragmentat",
+                  "icon": "04n"
+                }
+              ],
+              "clouds": {
+                "all": 52
+              },
+              "wind": {
+                "speed": 2.31,
+                "deg": 359,
+                "gust": 4.27
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "n"
+              },
+              "dt_txt": "2025-10-01 00:00:00"
+            },
+            {
+              "dt": 1759287600,
+              "main": {
+                "temp": 8.85,
+                "feels_like": 7.5,
+                "temp_min": 8.85,
+                "temp_max": 8.85,
+                "pressure": 1025,
+                "sea_level": 1025,
+                "grnd_level": 1008,
+                "humidity": 94,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 801,
+                  "main": "Clouds",
+                  "description": "câțiva nori",
+                  "icon": "02n"
+                }
+              ],
+              "clouds": {
+                "all": 23
+              },
+              "wind": {
+                "speed": 2.45,
+                "deg": 358,
+                "gust": 5.09
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "n"
+              },
+              "dt_txt": "2025-10-01 03:00:00"
+            },
+            {
+              "dt": 1759298400,
+              "main": {
+                "temp": 8.47,
+                "feels_like": 6.27,
+                "temp_min": 8.47,
+                "temp_max": 8.47,
+                "pressure": 1027,
+                "sea_level": 1027,
+                "grnd_level": 1010,
+                "humidity": 94,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 801,
+                  "main": "Clouds",
+                  "description": "câțiva nori",
+                  "icon": "02d"
+                }
+              ],
+              "clouds": {
+                "all": 15
+              },
+              "wind": {
+                "speed": 3.7,
+                "deg": 12,
+                "gust": 7.9
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "d"
+              },
+              "dt_txt": "2025-10-01 06:00:00"
+            },
+            {
+              "dt": 1759309200,
+              "main": {
+                "temp": 12.11,
+                "feels_like": 11.39,
+                "temp_min": 12.11,
+                "temp_max": 12.11,
+                "pressure": 1027,
+                "sea_level": 1027,
+                "grnd_level": 1010,
+                "humidity": 77,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 802,
+                  "main": "Clouds",
+                  "description": "nori împrăștiați",
+                  "icon": "03d"
+                }
+              ],
+              "clouds": {
+                "all": 36
+              },
+              "wind": {
+                "speed": 4.09,
+                "deg": 24,
+                "gust": 5.37
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "d"
+              },
+              "dt_txt": "2025-10-01 09:00:00"
+            },
+            {
+              "dt": 1759320000,
+              "main": {
+                "temp": 15.05,
+                "feels_like": 14.15,
+                "temp_min": 15.05,
+                "temp_max": 15.05,
+                "pressure": 1026,
+                "sea_level": 1026,
+                "grnd_level": 1010,
+                "humidity": 59,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 500,
+                  "main": "Rain",
+                  "description": "ploaie ușoară",
+                  "icon": "10d"
+                }
+              ],
+              "clouds": {
+                "all": 46
+              },
+              "wind": {
+                "speed": 4.31,
+                "deg": 41,
+                "gust": 4.58
+              },
+              "visibility": 10000,
+              "pop": 0.2,
+              "rain": {
+                "3h": 0.23
+              },
+              "sys": {
+                "pod": "d"
+              },
+              "dt_txt": "2025-10-01 12:00:00"
+            },
+            {
+              "dt": 1759330800,
+              "main": {
+                "temp": 14.96,
+                "feels_like": 13.95,
+                "temp_min": 14.96,
+                "temp_max": 14.96,
+                "pressure": 1026,
+                "sea_level": 1026,
+                "grnd_level": 1010,
+                "humidity": 55,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 804,
+                  "main": "Clouds",
+                  "description": "cer acoperit de nori",
+                  "icon": "04d"
+                }
+              ],
+              "clouds": {
+                "all": 99
+              },
+              "wind": {
+                "speed": 2.62,
+                "deg": 59,
+                "gust": 4.07
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "d"
+              },
+              "dt_txt": "2025-10-01 15:00:00"
+            },
+            {
+              "dt": 1759341600,
+              "main": {
+                "temp": 11.7,
+                "feels_like": 10.7,
+                "temp_min": 11.7,
+                "temp_max": 11.7,
+                "pressure": 1028,
+                "sea_level": 1028,
+                "grnd_level": 1011,
+                "humidity": 68,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 804,
+                  "main": "Clouds",
+                  "description": "cer acoperit de nori",
+                  "icon": "04n"
+                }
+              ],
+              "clouds": {
+                "all": 95
+              },
+              "wind": {
+                "speed": 2.17,
+                "deg": 82,
+                "gust": 5.93
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "n"
+              },
+              "dt_txt": "2025-10-01 18:00:00"
+            },
+            {
+              "dt": 1759352400,
+              "main": {
+                "temp": 8.48,
+                "feels_like": 7.42,
+                "temp_min": 8.48,
+                "temp_max": 8.48,
+                "pressure": 1029,
+                "sea_level": 1029,
+                "grnd_level": 1012,
+                "humidity": 75,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 803,
+                  "main": "Clouds",
+                  "description": "cer fragmentat",
+                  "icon": "04n"
+                }
+              ],
+              "clouds": {
+                "all": 60
+              },
+              "wind": {
+                "speed": 2,
+                "deg": 62,
+                "gust": 2.36
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "n"
+              },
+              "dt_txt": "2025-10-01 21:00:00"
+            },
+            {
+              "dt": 1759363200,
+              "main": {
+                "temp": 7.3,
+                "feels_like": 5.83,
+                "temp_min": 7.3,
+                "temp_max": 7.3,
+                "pressure": 1029,
+                "sea_level": 1029,
+                "grnd_level": 1011,
+                "humidity": 78,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 802,
+                  "main": "Clouds",
+                  "description": "nori împrăștiați",
+                  "icon": "03n"
+                }
+              ],
+              "clouds": {
+                "all": 31
+              },
+              "wind": {
+                "speed": 2.25,
+                "deg": 28,
+                "gust": 3.06
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "n"
+              },
+              "dt_txt": "2025-10-02 00:00:00"
+            },
+            {
+              "dt": 1759374000,
+              "main": {
+                "temp": 6.16,
+                "feels_like": 4.24,
+                "temp_min": 6.16,
+                "temp_max": 6.16,
+                "pressure": 1028,
+                "sea_level": 1028,
+                "grnd_level": 1011,
+                "humidity": 82,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 800,
+                  "main": "Clear",
+                  "description": "cer senin",
+                  "icon": "01n"
+                }
+              ],
+              "clouds": {
+                "all": 0
+              },
+              "wind": {
+                "speed": 2.54,
+                "deg": 10,
+                "gust": 4.02
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "n"
+              },
+              "dt_txt": "2025-10-02 03:00:00"
+            },
+            {
+              "dt": 1759384800,
+              "main": {
+                "temp": 5.42,
+                "feels_like": 3.48,
+                "temp_min": 5.42,
+                "temp_max": 5.42,
+                "pressure": 1029,
+                "sea_level": 1029,
+                "grnd_level": 1011,
+                "humidity": 82,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 800,
+                  "main": "Clear",
+                  "description": "cer senin",
+                  "icon": "01d"
+                }
+              ],
+              "clouds": {
+                "all": 2
+              },
+              "wind": {
+                "speed": 2.4,
+                "deg": 6,
+                "gust": 3.84
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "d"
+              },
+              "dt_txt": "2025-10-02 06:00:00"
+            },
+            {
+              "dt": 1759395600,
+              "main": {
+                "temp": 11.35,
+                "feels_like": 10.11,
+                "temp_min": 11.35,
+                "temp_max": 11.35,
+                "pressure": 1028,
+                "sea_level": 1028,
+                "grnd_level": 1011,
+                "humidity": 60,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 800,
+                  "main": "Clear",
+                  "description": "cer senin",
+                  "icon": "01d"
+                }
+              ],
+              "clouds": {
+                "all": 0
+              },
+              "wind": {
+                "speed": 2.55,
+                "deg": 45,
+                "gust": 4.34
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "d"
+              },
+              "dt_txt": "2025-10-02 09:00:00"
+            },
+            {
+              "dt": 1759406400,
+              "main": {
+                "temp": 15.54,
+                "feels_like": 14.3,
+                "temp_min": 15.54,
+                "temp_max": 15.54,
+                "pressure": 1026,
+                "sea_level": 1026,
+                "grnd_level": 1010,
+                "humidity": 44,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 800,
+                  "main": "Clear",
+                  "description": "cer senin",
+                  "icon": "01d"
+                }
+              ],
+              "clouds": {
+                "all": 0
+              },
+              "wind": {
+                "speed": 3.25,
+                "deg": 64,
+                "gust": 4.58
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "d"
+              },
+              "dt_txt": "2025-10-02 12:00:00"
+            },
+            {
+              "dt": 1759417200,
+              "main": {
+                "temp": 15.58,
+                "feels_like": 14.5,
+                "temp_min": 15.58,
+                "temp_max": 15.58,
+                "pressure": 1025,
+                "sea_level": 1025,
+                "grnd_level": 1008,
+                "humidity": 50,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 800,
+                  "main": "Clear",
+                  "description": "cer senin",
+                  "icon": "01d"
+                }
+              ],
+              "clouds": {
+                "all": 0
+              },
+              "wind": {
+                "speed": 3.4,
+                "deg": 75,
+                "gust": 4.36
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "d"
+              },
+              "dt_txt": "2025-10-02 15:00:00"
+            },
+            {
+              "dt": 1759428000,
+              "main": {
+                "temp": 10.13,
+                "feels_like": 8.95,
+                "temp_min": 10.13,
+                "temp_max": 10.13,
+                "pressure": 1025,
+                "sea_level": 1025,
+                "grnd_level": 1008,
+                "humidity": 67,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 800,
+                  "main": "Clear",
+                  "description": "cer senin",
+                  "icon": "01n"
+                }
+              ],
+              "clouds": {
+                "all": 1
+              },
+              "wind": {
+                "speed": 2.91,
+                "deg": 88,
+                "gust": 6.89
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "n"
+              },
+              "dt_txt": "2025-10-02 18:00:00"
+            },
+            {
+              "dt": 1759438800,
+              "main": {
+                "temp": 7.93,
+                "feels_like": 6.79,
+                "temp_min": 7.93,
+                "temp_max": 7.93,
+                "pressure": 1024,
+                "sea_level": 1024,
+                "grnd_level": 1007,
+                "humidity": 74,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 801,
+                  "main": "Clouds",
+                  "description": "câțiva nori",
+                  "icon": "02n"
+                }
+              ],
+              "clouds": {
+                "all": 18
+              },
+              "wind": {
+                "speed": 1.99,
+                "deg": 91,
+                "gust": 2.35
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "n"
+              },
+              "dt_txt": "2025-10-02 21:00:00"
+            },
+            {
+              "dt": 1759449600,
+              "main": {
+                "temp": 6.66,
+                "feels_like": 6.66,
+                "temp_min": 6.66,
+                "temp_max": 6.66,
+                "pressure": 1024,
+                "sea_level": 1024,
+                "grnd_level": 1007,
+                "humidity": 77,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 803,
+                  "main": "Clouds",
+                  "description": "cer fragmentat",
+                  "icon": "04n"
+                }
+              ],
+              "clouds": {
+                "all": 59
+              },
+              "wind": {
+                "speed": 1.12,
+                "deg": 118,
+                "gust": 1.83
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "n"
+              },
+              "dt_txt": "2025-10-03 00:00:00"
+            },
+            {
+              "dt": 1759460400,
+              "main": {
+                "temp": 5.8,
+                "feels_like": 4.65,
+                "temp_min": 5.8,
+                "temp_max": 5.8,
+                "pressure": 1022,
+                "sea_level": 1022,
+                "grnd_level": 1005,
+                "humidity": 77,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 804,
+                  "main": "Clouds",
+                  "description": "cer acoperit de nori",
+                  "icon": "04n"
+                }
+              ],
+              "clouds": {
+                "all": 100
+              },
+              "wind": {
+                "speed": 1.67,
+                "deg": 144,
+                "gust": 2.45
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "n"
+              },
+              "dt_txt": "2025-10-03 03:00:00"
+            },
+            {
+              "dt": 1759471200,
+              "main": {
+                "temp": 6.31,
+                "feels_like": 6.31,
+                "temp_min": 6.31,
+                "temp_max": 6.31,
+                "pressure": 1022,
+                "sea_level": 1022,
+                "grnd_level": 1005,
+                "humidity": 73,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 804,
+                  "main": "Clouds",
+                  "description": "cer acoperit de nori",
+                  "icon": "04d"
+                }
+              ],
+              "clouds": {
+                "all": 100
+              },
+              "wind": {
+                "speed": 0.95,
+                "deg": 175,
+                "gust": 1.46
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "d"
+              },
+              "dt_txt": "2025-10-03 06:00:00"
+            },
+            {
+              "dt": 1759482000,
+              "main": {
+                "temp": 8.79,
+                "feels_like": 7.27,
+                "temp_min": 8.79,
+                "temp_max": 8.79,
+                "pressure": 1021,
+                "sea_level": 1021,
+                "grnd_level": 1004,
+                "humidity": 65,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 804,
+                  "main": "Clouds",
+                  "description": "cer acoperit de nori",
+                  "icon": "04d"
+                }
+              ],
+              "clouds": {
+                "all": 100
+              },
+              "wind": {
+                "speed": 2.67,
+                "deg": 176,
+                "gust": 4.52
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "d"
+              },
+              "dt_txt": "2025-10-03 09:00:00"
+            },
+            {
+              "dt": 1759492800,
+              "main": {
+                "temp": 13.22,
+                "feels_like": 12.01,
+                "temp_min": 13.22,
+                "temp_max": 13.22,
+                "pressure": 1020,
+                "sea_level": 1020,
+                "grnd_level": 1003,
+                "humidity": 54,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 804,
+                  "main": "Clouds",
+                  "description": "cer acoperit de nori",
+                  "icon": "04d"
+                }
+              ],
+              "clouds": {
+                "all": 100
+              },
+              "wind": {
+                "speed": 2.62,
+                "deg": 167,
+                "gust": 3.91
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "d"
+              },
+              "dt_txt": "2025-10-03 12:00:00"
+            },
+            {
+              "dt": 1759503600,
+              "main": {
+                "temp": 13.86,
+                "feels_like": 12.87,
+                "temp_min": 13.86,
+                "temp_max": 13.86,
+                "pressure": 1019,
+                "sea_level": 1019,
+                "grnd_level": 1002,
+                "humidity": 60,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 804,
+                  "main": "Clouds",
+                  "description": "cer acoperit de nori",
+                  "icon": "04d"
+                }
+              ],
+              "clouds": {
+                "all": 100
+              },
+              "wind": {
+                "speed": 1.67,
+                "deg": 134,
+                "gust": 2.48
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "d"
+              },
+              "dt_txt": "2025-10-03 15:00:00"
+            },
+            {
+              "dt": 1759514400,
+              "main": {
+                "temp": 11.64,
+                "feels_like": 10.61,
+                "temp_min": 11.64,
+                "temp_max": 11.64,
+                "pressure": 1018,
+                "sea_level": 1018,
+                "grnd_level": 1001,
+                "humidity": 67,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 804,
+                  "main": "Clouds",
+                  "description": "cer acoperit de nori",
+                  "icon": "04n"
+                }
+              ],
+              "clouds": {
+                "all": 100
+              },
+              "wind": {
+                "speed": 1.56,
+                "deg": 205,
+                "gust": 2.15
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "n"
+              },
+              "dt_txt": "2025-10-03 18:00:00"
+            },
+            {
+              "dt": 1759525200,
+              "main": {
+                "temp": 9.9,
+                "feels_like": 9.09,
+                "temp_min": 9.9,
+                "temp_max": 9.9,
+                "pressure": 1018,
+                "sea_level": 1018,
+                "grnd_level": 1001,
+                "humidity": 73,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 804,
+                  "main": "Clouds",
+                  "description": "cer acoperit de nori",
+                  "icon": "04n"
+                }
+              ],
+              "clouds": {
+                "all": 100
+              },
+              "wind": {
+                "speed": 1.98,
+                "deg": 176,
+                "gust": 2.6
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "n"
+              },
+              "dt_txt": "2025-10-03 21:00:00"
+            },
+            {
+              "dt": 1759536000,
+              "main": {
+                "temp": 9.26,
+                "feels_like": 7.75,
+                "temp_min": 9.26,
+                "temp_max": 9.26,
+                "pressure": 1018,
+                "sea_level": 1018,
+                "grnd_level": 1001,
+                "humidity": 75,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 804,
+                  "main": "Clouds",
+                  "description": "cer acoperit de nori",
+                  "icon": "04n"
+                }
+              ],
+              "clouds": {
+                "all": 100
+              },
+              "wind": {
+                "speed": 2.79,
+                "deg": 178,
+                "gust": 5.56
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "n"
+              },
+              "dt_txt": "2025-10-04 00:00:00"
+            },
+            {
+              "dt": 1759546800,
+              "main": {
+                "temp": 8.63,
+                "feels_like": 6.8,
+                "temp_min": 8.63,
+                "temp_max": 8.63,
+                "pressure": 1017,
+                "sea_level": 1017,
+                "grnd_level": 1000,
+                "humidity": 78,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 804,
+                  "main": "Clouds",
+                  "description": "cer acoperit de nori",
+                  "icon": "04n"
+                }
+              ],
+              "clouds": {
+                "all": 100
+              },
+              "wind": {
+                "speed": 3.11,
+                "deg": 188,
+                "gust": 7.23
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "n"
+              },
+              "dt_txt": "2025-10-04 03:00:00"
+            },
+            {
+              "dt": 1759557600,
+              "main": {
+                "temp": 10.8,
+                "feels_like": 9.82,
+                "temp_min": 10.8,
+                "temp_max": 10.8,
+                "pressure": 1016,
+                "sea_level": 1016,
+                "grnd_level": 999,
+                "humidity": 72,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 804,
+                  "main": "Clouds",
+                  "description": "cer acoperit de nori",
+                  "icon": "04d"
+                }
+              ],
+              "clouds": {
+                "all": 100
+              },
+              "wind": {
+                "speed": 4.34,
+                "deg": 186,
+                "gust": 10.64
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "d"
+              },
+              "dt_txt": "2025-10-04 06:00:00"
+            },
+            {
+              "dt": 1759568400,
+              "main": {
+                "temp": 13.91,
+                "feels_like": 13.05,
+                "temp_min": 13.91,
+                "temp_max": 13.91,
+                "pressure": 1015,
+                "sea_level": 1015,
+                "grnd_level": 998,
+                "humidity": 65,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 804,
+                  "main": "Clouds",
+                  "description": "cer acoperit de nori",
+                  "icon": "04d"
+                }
+              ],
+              "clouds": {
+                "all": 100
+              },
+              "wind": {
+                "speed": 5.43,
+                "deg": 194,
+                "gust": 10.85
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "d"
+              },
+              "dt_txt": "2025-10-04 09:00:00"
+            },
+            {
+              "dt": 1759579200,
+              "main": {
+                "temp": 16.95,
+                "feels_like": 16.35,
+                "temp_min": 16.95,
+                "temp_max": 16.95,
+                "pressure": 1013,
+                "sea_level": 1013,
+                "grnd_level": 997,
+                "humidity": 63,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 804,
+                  "main": "Clouds",
+                  "description": "cer acoperit de nori",
+                  "icon": "04d"
+                }
+              ],
+              "clouds": {
+                "all": 100
+              },
+              "wind": {
+                "speed": 6.34,
+                "deg": 188,
+                "gust": 10.02
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "d"
+              },
+              "dt_txt": "2025-10-04 12:00:00"
+            },
+            {
+              "dt": 1759590000,
+              "main": {
+                "temp": 16.76,
+                "feels_like": 16.48,
+                "temp_min": 16.76,
+                "temp_max": 16.76,
+                "pressure": 1012,
+                "sea_level": 1012,
+                "grnd_level": 995,
+                "humidity": 76,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 500,
+                  "main": "Rain",
+                  "description": "ploaie ușoară",
+                  "icon": "10d"
+                }
+              ],
+              "clouds": {
+                "all": 100
+              },
+              "wind": {
+                "speed": 5.64,
+                "deg": 197,
+                "gust": 10.11
+              },
+              "visibility": 10000,
+              "pop": 0.2,
+              "rain": {
+                "3h": 0.12
+              },
+              "sys": {
+                "pod": "d"
+              },
+              "dt_txt": "2025-10-04 15:00:00"
+            },
+            {
+              "dt": 1759600800,
+              "main": {
+                "temp": 15.97,
+                "feels_like": 15.79,
+                "temp_min": 15.97,
+                "temp_max": 15.97,
+                "pressure": 1013,
+                "sea_level": 1013,
+                "grnd_level": 996,
+                "humidity": 83,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 804,
+                  "main": "Clouds",
+                  "description": "cer acoperit de nori",
+                  "icon": "04n"
+                }
+              ],
+              "clouds": {
+                "all": 100
+              },
+              "wind": {
+                "speed": 4.9,
+                "deg": 204,
+                "gust": 9.83
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "n"
+              },
+              "dt_txt": "2025-10-04 18:00:00"
+            },
+            {
+              "dt": 1759611600,
+              "main": {
+                "temp": 12.84,
+                "feels_like": 12.37,
+                "temp_min": 12.84,
+                "temp_max": 12.84,
+                "pressure": 1016,
+                "sea_level": 1016,
+                "grnd_level": 999,
+                "humidity": 84,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 500,
+                  "main": "Rain",
+                  "description": "ploaie ușoară",
+                  "icon": "10n"
+                }
+              ],
+              "clouds": {
+                "all": 100
+              },
+              "wind": {
+                "speed": 3.96,
+                "deg": 304,
+                "gust": 10.12
+              },
+              "visibility": 10000,
+              "pop": 1,
+              "rain": {
+                "3h": 1.38
+              },
+              "sys": {
+                "pod": "n"
+              },
+              "dt_txt": "2025-10-04 21:00:00"
+            },
+            {
+              "dt": 1759622400,
+              "main": {
+                "temp": 11.89,
+                "feels_like": 11.28,
+                "temp_min": 11.89,
+                "temp_max": 11.89,
+                "pressure": 1018,
+                "sea_level": 1018,
+                "grnd_level": 1001,
+                "humidity": 82,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 804,
+                  "main": "Clouds",
+                  "description": "cer acoperit de nori",
+                  "icon": "04n"
+                }
+              ],
+              "clouds": {
+                "all": 98
+              },
+              "wind": {
+                "speed": 2.08,
+                "deg": 286,
+                "gust": 5.47
+              },
+              "visibility": 10000,
+              "pop": 0.8,
+              "sys": {
+                "pod": "n"
+              },
+              "dt_txt": "2025-10-05 00:00:00"
+            },
+            {
+              "dt": 1759633200,
+              "main": {
+                "temp": 9.35,
+                "feels_like": 8.29,
+                "temp_min": 9.35,
+                "temp_max": 9.35,
+                "pressure": 1019,
+                "sea_level": 1019,
+                "grnd_level": 1002,
+                "humidity": 86,
+                "temp_kf": 0
+              },
+              "weather": [
+                {
+                  "id": 800,
+                  "main": "Clear",
+                  "description": "cer senin",
+                  "icon": "01n"
+                }
+              ],
+              "clouds": {
+                "all": 1
+              },
+              "wind": {
+                "speed": 2.18,
+                "deg": 256,
+                "gust": 4.56
+              },
+              "visibility": 10000,
+              "pop": 0,
+              "sys": {
+                "pod": "n"
+              },
+              "dt_txt": "2025-10-05 03:00:00"
+            }
+          ],
+          "city": {
+            "id": 2973783,
+            "name": "Strasbourg",
+            "coord": {
+              "lat": 48.5834,
+              "lon": 7.743
+            },
+            "country": "FR",
+            "population": 15000,
+            "timezone": 7200,
+            "sunrise": 1759210013,
+            "sunset": 1759252260
+          }
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get Hour",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Switch action",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenWeatherMap1": {
+      "main": [
+        [
+          {
+            "node": "Create current forecast message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get ChatID": {
+      "main": [
+        [
+          {
+            "node": "Loop every city",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop every city": {
+      "main": [
+        [
+          {
+            "node": "Aggregate1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Delete subscribed city",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete subscribed city": {
+      "main": [
+        [
+          {
+            "node": "Loop every city",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch action": {
+      "main": [
+        [
+          {
+            "node": "Add new subscriber",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get ChatID",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get ChatID3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "OpenWeatherMap1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get ChatID1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Filter by ChatID",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get ChatID2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Hour": {
+      "main": [
+        [
+          {
+            "node": "Get ChatID for Hour",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get ChatID for Hour": {
+      "main": [
+        [
+          {
+            "node": "Weather",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge with ChatID",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Weather": {
+      "main": [
+        [
+          {
+            "node": "Filter Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge with ChatID": {
+      "main": [
+        [
+          {
+            "node": "Loop every user",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send tomorrow's forecast": {
+      "main": [
+        []
+      ]
+    },
+    "Filter Input": {
+      "main": [
+        [
+          {
+            "node": "Create forecast message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge with ChatID1": {
+      "main": [
+        [
+          {
+            "node": "Send current forecast",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter by ChatID": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get ChatID1": {
+      "main": [
+        [
+          {
+            "node": "Merge with ChatID1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Create status message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get ChatID2": {
+      "main": [
+        [
+          {
+            "node": "Merge with ChatID2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge with ChatID2": {
+      "main": [
+        [
+          {
+            "node": "Send status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get ChatID3": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate1": {
+      "main": [
+        [
+          {
+            "node": "Create cancel message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Deleted succesful",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add new subscriber": {
+      "main": [
+        [
+          {
+            "node": "New user",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create forecast message": {
+      "main": [
+        [
+          {
+            "node": "Merge with ChatID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add City": {
+      "main": [
+        [
+          {
+            "node": "Loop every user",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop every user": {
+      "main": [
+        [
+          {
+            "node": "Send tomorrow's forecast",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Add City",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Store": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create status message": {
+      "main": [
+        [
+          {
+            "node": "Merge with ChatID2",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Create current forecast message": {
+      "main": [
+        [
+          {
+            "node": "Merge with ChatID1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Create cancel message": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "2985b0f5-abb3-43f4-8295-b27db6f93d52",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4f02a942d381b71332dd184d342f142c2ba18faedcd8f911c6673bd784dc77d3"
+  },
+  "id": "eVojBeEWtyigwtuY",
+  "tags": []
+}
